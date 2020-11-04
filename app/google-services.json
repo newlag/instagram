@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1073317107555",
+    "firebase_url": "https://stone-botany-289615.firebaseio.com",
+    "project_id": "stone-botany-289615",
+    "storage_bucket": "stone-botany-289615.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1073317107555:android:e6892cb5271afab2372556",
+        "android_client_info": {
+          "package_name": "com.example.instagram"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1073317107555-2e52m9n8m42mc1osr3omvjkabknf8q5d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCgP-dz0zhjO7vK3I5LdEHC-sX10kvpGY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1073317107555-2e52m9n8m42mc1osr3omvjkabknf8q5d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

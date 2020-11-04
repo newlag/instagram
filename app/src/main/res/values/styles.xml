@@ -1,0 +1,36 @@
+<resources>
+
+
+    <style name="CustomTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="colorAccent">@color/colorGrey</item>
+        <item name="actionMenuTextColor">@color/colorBlueButton</item>
+    </style>
+
+    <style name="AuthEditText">
+        <item name="android:background">@drawable/edit_text_style</item>
+    </style>
+
+    <style name="Button">
+        <item name="android:background">@drawable/button_style</item>
+    </style>
+
+    <!--<style name="ToolBar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:textColorSecondary">@color/colorBlack</item>
+        <item name="android:textColorPrimary">@color/colorBlack</item>
+    </style>-->
+
+    <style name="CustomTheme.Toolbar" parent="CustomTheme">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <!--This line changes the color of text in Toolbar-->
+        <item name="android:textColorPrimary">@color/colorBlack</item>
+        <!--This line changes the color of icons in toolbar (back, overflow menu icons)-->
+        <item name="android:textColorSecondary">@color/colorBlack</item>
+    </style>
+
+</resources>

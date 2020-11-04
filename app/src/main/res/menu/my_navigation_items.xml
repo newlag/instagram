@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/action_home"
+        android:title="Home"
+        android:icon="@drawable/home_selector" />
+    <item android:id="@+id/action_search"
+        android:title="Search"
+        android:icon="@drawable/search_selector" />
+    <item android:id="@+id/action_add"
+        android:title="Add"
+        android:icon="@drawable/ic_add" />
+    <item android:id="@+id/action_like"
+        android:title="Likes"
+        android:icon="@drawable/like_selector" />
+    <item android:id="@+id/action_profile"
+        android:title="Profile"
+        android:icon="@drawable/profile_selector" />
+</menu>
