@@ -11,6 +11,7 @@
 
     <style name="AuthEditText">
         <item name="android:background">@drawable/edit_text_style</item>
+        <item name="android:backgroundTint">@color/colorGreyLight</item>
     </style>
 
     <style name="Button">

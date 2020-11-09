@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Instagram</string>
     <string name="login">Log In</string>
-    <string name="login_hint">Phone number, email or username</string>
+    <string name="login_hint">Email</string>
     <string name="pass_hint">Password</string>
     <string name="register_hint">Don\'t have an account? Sign up.</string>
     <string name="auth_error">Wrong login or password</string>
@@ -49,4 +49,5 @@
     <string name="days_ago">d</string>
     <string name="follow_title">started following you</string>
     <string name="gallery_title">Gallery</string>
+    <string name="log_in_hint">Have an account? Log In.</string>
 </resources>

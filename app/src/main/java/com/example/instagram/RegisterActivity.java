@@ -15,10 +15,10 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class RegisterActivity extends AppCompatActivity implements RegisterPresenter.View {
 
-    EditText mEmail, mFullname, mUsername, mPassword;
-    Button mRegisterButton;
-    FirebaseAuth mFirebaseAuth;
-    RegisterPresenter registerPresenter;
+    private EditText mEmail, mFullname, mUsername, mPassword;
+    private Button mRegisterButton, mBack;
+    private FirebaseAuth mFirebaseAuth;
+    private RegisterPresenter registerPresenter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,6 +46,13 @@ public class RegisterActivity extends AppCompatActivity implements RegisterPrese
             }
         });
 
+        mBack = findViewById(R.id.back_button);
+        mBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
 
     }

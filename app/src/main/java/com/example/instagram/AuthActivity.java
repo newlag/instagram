@@ -53,6 +53,7 @@ public class AuthActivity extends AppCompatActivity implements AuthPresenter.Vie
     @Override
     public void login() {
         startActivity(new Intent(AuthActivity.this, MainActivity.class));
+        finish();
     }
 
     @Override

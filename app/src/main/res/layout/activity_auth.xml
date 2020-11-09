@@ -7,71 +7,75 @@
     >
 
 
-    <TextView
-        android:id="@+id/textView"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="240dp"
-        android:text="@string/app_name"
-        android:textAlignment="center"
-        android:textSize="40sp"
-        style:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="-16dp" />
-
-    <EditText
-        android:id="@+id/reg_email"
-        style="@style/AuthEditText"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:hint="@string/login_hint"
-        android:inputType="text"
-        android:paddingLeft="15dp"
-        android:textColor="@color/colorGrey"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:gravity="center_vertical"
+        style:layout_constraintBottom_toTopOf="@+id/register_button"
         style:layout_constraintEnd_toEndOf="parent"
         style:layout_constraintStart_toStartOf="parent"
-        style:layout_constraintTop_toBottomOf="@+id/textView" />
+        style:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/reg_password"
-        style="@style/AuthEditText"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
-        android:ems="10"
-        android:hint="@string/pass_hint"
-        android:inputType="textPassword"
-        android:paddingLeft="15dp"
-        android:textColor="@color/colorGrey"
-        style:layout_constraintEnd_toEndOf="parent"
-        style:layout_constraintStart_toStartOf="parent"
-        style:layout_constraintTop_toBottomOf="@+id/reg_email" />
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            style:srcCompat="@drawable/instagram" />
+
+
+        <EditText
+            android:id="@+id/reg_email"
+            style="@style/AuthEditText"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            android:hint="@string/login_hint"
+            android:inputType="text"
+            android:paddingLeft="15dp"
+            android:textColor="@color/colorBlack" />
+
+        <EditText
+            android:id="@+id/reg_password"
+            style="@style/AuthEditText"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:ems="10"
+            android:hint="@string/pass_hint"
+            android:inputType="textPassword"
+            android:paddingLeft="15dp"
+            android:textColor="@color/colorBlack" />
+
+        <Button
+            android:id="@+id/reg_button"
+            style="@style/Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/colorBlueButton"
+            android:text="@string/login"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white" />
+
+    </LinearLayout>
 
     <Button
-        android:id="@+id/reg_button"
+        android:id="@+id/register_button"
         style="@style/Button"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:backgroundTint="@color/colorBlueButton"
-        android:text="@string/login"
-        android:textColor="@android:color/white"
-        style:layout_constraintEnd_toEndOf="parent"
-        style:layout_constraintStart_toStartOf="parent"
-        style:layout_constraintTop_toBottomOf="@+id/reg_password" />
-
-    <Button
-        style="@style/AuthEditText"
-        android:id="@+id/register_button"
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/colorWhite"
         android:text="@string/register_hint"
+        android:textAllCaps="false"
         style:layout_constraintBottom_toBottomOf="parent"
         style:layout_constraintEnd_toEndOf="parent"
         style:layout_constraintStart_toStartOf="parent" />
