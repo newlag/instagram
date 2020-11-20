@@ -29,6 +29,7 @@ import com.example.instagram.presenters.FollowersPresenter;
 import java.util.ArrayList;
 
 public class FollowersActivity extends AppCompatActivity implements FollowersPresenter.onConnectionError {
+    // this is worked?
     private static final String USER_EXTRA = "USER_ID";
     private static final String TYPE_EXTRA = "TYPE";
     private static final String USER_ID_EXTRA = "USER_ID_SHOW";
