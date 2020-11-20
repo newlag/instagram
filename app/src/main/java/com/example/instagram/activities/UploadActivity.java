@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,11 +52,11 @@ public class UploadActivity extends Activity implements UploadPresenter.connecti
 
     private static final String INTENT_EXTRA = "IS_PROFILE_EXTRA";
     private static final String FILE_EXTRA = "FILE_EXTRA";
-    private boolean isProfile = false;
+    private int type; // 0 - пост,  1 - фото профиля, 2 - история
 
-    public static Intent newInstance(Context context, boolean isProfile) {
+    public static Intent newInstance(Context context, int type) {
         Intent intent = new Intent(context, UploadActivity.class);
-        intent.putExtra(INTENT_EXTRA, isProfile);
+        intent.putExtra(INTENT_EXTRA, type);
         return intent;
     }
 
@@ -66,7 +67,7 @@ public class UploadActivity extends Activity implements UploadPresenter.connecti
 
         Bundle args = getIntent().getExtras();
         if (args != null) {
-            isProfile = args.getBoolean(INTENT_EXTRA);
+            type = args.getInt(INTENT_EXTRA);
         }
 
         presenter = new UploadPresenter(this);
@@ -139,15 +140,26 @@ public class UploadActivity extends Activity implements UploadPresenter.connecti
     private void saveImage(Bitmap bitmap) {
         String name = String.valueOf(Calendar.getInstance().getTimeInMillis());
         String file = MediaStore.Images.Media.insertImage(getApplicationContext().getContentResolver(), bitmap, name, null);
+        Intent intent = new Intent();
+        switch(type) {
+            case 0: // пост
+                startActivityForResult(PostActivityDetails.newInstance(this, file), DETAILS_REQUEST);
+            break;
 
-        if (isProfile) {
-            Intent intent = new Intent();
-            intent.putExtra(FILE_EXTRA, file);
-            setResult(RESULT_OK, intent);
-            finish();
-        } else {
-            startActivityForResult(PostActivityDetails.newInstance(this, file), DETAILS_REQUEST);
+            case 1: // фото профиля
+                intent.putExtra(FILE_EXTRA, file);
+                setResult(RESULT_OK, intent);
+                finish();
+            break;
+            case 2: // история
+                Intent i = new Intent();
+                i.putExtra(FILE_EXTRA, file);
+                setResult(RESULT_OK, i);
+                finish();
+                Log.i("[UploadActivity.java]", "лолкекчебурек" + file);
+            break;
         }
+
     }
 
     private class loadImage extends AsyncTask<Void, Void, ArrayList<String>> {
@@ -212,7 +224,12 @@ public class UploadActivity extends Activity implements UploadPresenter.connecti
                 @Override
                 public void onClick(View view) {
                     preview.setImageUri(Uri.fromFile(new File(path)));
-                    preview.setRatios(0.8F, 0.8F, 0.8F); // Соотношение 4:5
+                    if (type == 2) {
+                        preview.setRatios(0.5625F, 0.5625F, 0.5625F);
+                    }
+                    else {
+                        preview.setRatios(0.8F, 0.8F, 0.8F); // Соотношение 4:5
+                    }
                 }
             });
         }

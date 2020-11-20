@@ -50,4 +50,5 @@
     <string name="follow_title">started following you</string>
     <string name="gallery_title">Gallery</string>
     <string name="log_in_hint">Have an account? Log In.</string>
+    <string name="views_text">"Views: "</string>
 </resources>

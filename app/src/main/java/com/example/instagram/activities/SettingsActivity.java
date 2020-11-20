@@ -110,7 +110,7 @@ public class SettingsActivity extends AppCompatActivity implements SettingsPrese
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(UploadActivity.newInstance(SettingsActivity.this, true), PHOTO_UPLOAD_CODE);
+                startActivityForResult(UploadActivity.newInstance(SettingsActivity.this, 1), PHOTO_UPLOAD_CODE);
             }
         });
         logout.setOnClickListener(new View.OnClickListener() {

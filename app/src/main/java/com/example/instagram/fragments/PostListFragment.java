@@ -1,7 +1,9 @@
 package com.example.instagram.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,17 +25,28 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.instagram.DateUtil;
 import com.example.instagram.R;
 import com.example.instagram.activities.CommentsActivity;
+import com.example.instagram.activities.UploadActivity;
+import com.example.instagram.adapters.PostAdapter;
+import com.example.instagram.adapters.StoryAdapter;
 import com.example.instagram.data.Post;
+import com.example.instagram.data.Story;
 import com.example.instagram.data.User;
 import com.example.instagram.presenters.PostListPresenter;
 
 import java.util.ArrayList;
 
-public class PostListFragment extends Fragment implements PostListPresenter.connectionError {
+import javax.xml.transform.Result;
+
+import static android.app.Activity.RESULT_OK;
+
+public class PostListFragment extends Fragment implements PostListPresenter.connectionError, PostAdapter.Callback {
 
     private static final String USER_ID_EXTRA = "USER_ID";
+    private static final int STORY_REQUEST = 1;
 
     private ArrayList<Post> posts = new ArrayList<>();
+    private ArrayList<User> users = new ArrayList<>(); // Подписки
+    private ArrayList<Story> story;
 
 
     private PostListPresenter presenter;
@@ -84,7 +97,9 @@ public class PostListFragment extends Fragment implements PostListPresenter.conn
             toolbar.setTitle(R.string.app_name);
         }
 
-        updateList();
+        update();
+
+        /*updateList();
 
         refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -96,40 +111,78 @@ public class PostListFragment extends Fragment implements PostListPresenter.conn
                     }
                 });
             }
-        });
+        });*/
 
         return v;
     }
 
+    private void update() {
+        if (!isProfile) {
+            presenter.loadFollowings(new PostListPresenter.onFollowingsLoaded() {
+                @Override
+                public void onSuccess(ArrayList<User> u) {
+                    users = u;
+                    loadPosts();
+                    //loadStory();
+                }
+            });
+        }
+    }
+
+    private void loadPosts() {
+        presenter.loadPosts(users, new PostListPresenter.onPostsLoaded() {
+            @Override
+            public void onSuccess(ArrayList<Post> p) {
+                posts = p;
+                loadStory();
+            }
+        });
+    }
+
+    private void loadStory() {
+        presenter.loadStory(users, new PostListPresenter.onStoryLoaded() {
+            @Override
+            public void onSuccess(ArrayList<Story> s) {
+                story = s;
+                postViewer.setLayoutManager(new LinearLayoutManager(getActivity()));
+                postViewer.setAdapter(new PostAdapter(getContext(), posts, story, presenter, PostListFragment.this));
+            }
+        });
+    }
+
     private void updateList() {
-        if (isProfile) {
+        /*if (isProfile) {
             presenter.loadPosts(userId, new PostListPresenter.onPostsLoaded() {
                 @Override
                 public void onSuccess(ArrayList<Post> p) {
-                    posts = p;
-                    postViewer.getAdapter().notifyDataSetChanged();
+                posts = p;
+                //postViewer.getAdapter().notifyDataSetChanged();
+                postViewer.setLayoutManager(new LinearLayoutManager(getActivity()));
+                postViewer.setAdapter(new PostAdapter(getContext(), posts, presenter, PostListFragment.this));
                 }
             });
         } else {
             presenter.loadPosts(new PostListPresenter.onPostsLoaded() {
                 @Override
                 public void onSuccess(ArrayList<Post> p) {
-                    posts = p;
-                    postViewer.getAdapter().notifyDataSetChanged();
+                posts = p;
+                //postViewer.getAdapter().notifyDataSetChanged();
+                postViewer.setLayoutManager(new LinearLayoutManager(getActivity()));
+                postViewer.setAdapter(new PostAdapter(getContext(), posts, presenter, PostListFragment.this));
                 }
             });
-        }
+        }*/
     }
 
     private void init(View v) {
         toolbar = v.findViewById(R.id.toolbar);
         postViewer = v.findViewById(R.id.items_list);
-        postViewer.setLayoutManager(new LinearLayoutManager(getActivity()));
-        postViewer.setAdapter(new PostsAdapter());
+        //postViewer.setLayoutManager(new LinearLayoutManager(getActivity()));
+        //postViewer.setAdapter(new PostAdapter(getContext(), posts, presenter, this));
         refresh = v.findViewById(R.id.refresh);
     }
 
-    private class PostsHolder extends RecyclerView.ViewHolder {
+    /*private class PostsHolder extends RecyclerView.ViewHolder {
         TextView name, likes, description, date;
         ImageView photo;
         ImageButton likeButton, commentButton;
@@ -247,10 +300,42 @@ public class PostListFragment extends Fragment implements PostListPresenter.conn
         public int getItemCount() {
             return posts.size();
         }
-    }
+    }*/
 
     @Override
     public void showConnectionError() {
         Toast.makeText(getActivity(), R.string.error_connection, Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void onPostsLoaded() {
+        if (refresh.isRefreshing()) refresh.setRefreshing(false);
+    }
+
+    @Override
+    public void onComment(String post_id) {
+        startActivity(CommentsActivity.newInstance(getActivity(), post_id));
+    }
+
+    @Override
+    public void uploadStory() {
+        //getActivity().startActivityFromFragment(this, UploadActivity.newInstance(getActivity(), 2), STORY_REQUEST);
+        Log.i("[PostListFragment.java]", "локекчебурек | вызов uploadStory");
+        startActivityForResult(UploadActivity.newInstance(getContext(), 2), STORY_REQUEST);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        //super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            if (requestCode == STORY_REQUEST) {
+                String path = UploadActivity.readFileExtra(data);
+                presenter.uploadPhoto(path);
+                Log.i("[PostListFragment.java]", "лолкекчебурек");
+            }
+        }
+    }
+
+
 }

@@ -3,6 +3,7 @@ package com.example.instagram.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,6 +94,7 @@ public class FollowersActivity extends AppCompatActivity implements FollowersPre
         presenter.loadFollowers(new FollowersPresenter.onFollowersLoaded() {
             @Override
             public void onSuccess(ArrayList<User> users) {
+                Log.i("[Follwoers]", "лолкекчебурек : " + users.size());
                 loading.setVisibility(View.GONE);
                 usersList = users;
                 recyclerView.getAdapter().notifyDataSetChanged();

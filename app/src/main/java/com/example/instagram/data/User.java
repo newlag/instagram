@@ -9,6 +9,12 @@ public class User {
     private String image;
     private String bio;
 
+    public User(String user_id) {
+        this.user_id = user_id;
+    }
+
+    public User() {}
+
     public String getUser_id() {
         return user_id;
     }

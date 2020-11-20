@@ -27,6 +27,8 @@
         <activity android:name=".activities.FollowersActivity"/>
         <activity android:name=".activities.SettingsActivity"/>
         <activity android:name=".activities.UploadActivity"/>
+        <activity android:name=".activities.StoryActivity"
+                android:theme="@style/BlackTheme"/>
     </application>
 
 </manifest>

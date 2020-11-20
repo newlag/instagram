@@ -9,14 +9,25 @@ import java.util.Locale;
 
 public class DateUtil {
 
-    private static String getCurrentTime() {
-        return ServerValue.TIMESTAMP.get("timestamp");
-    }
 
     public static String getDate(Long time) {
-        Long currentTime = Calendar.getInstance().getTimeInMillis();
-        Long difference = (currentTime - time) / (1000 * 60 * 60 * 24);
+        Long difference = (getCurrentTime() - time) / (1000 * 60 * 60 * 24);
 
+        return String.valueOf(difference);
+    }
+
+    public static boolean isStoryActive(Long time) {
+
+        if (getCurrentTime() - time < (1000 * 60 * 60 * 24)) return true;
+        return false;
+    }
+
+    public static long getCurrentTime() {
+        return Calendar.getInstance().getTimeInMillis();
+    }
+
+    public static String hoursAgo(Long time) {
+        Long difference = (getCurrentTime() - time) / (1000 * 60 * 60);
         return String.valueOf(difference);
     }
 

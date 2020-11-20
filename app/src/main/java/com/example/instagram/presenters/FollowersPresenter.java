@@ -1,5 +1,7 @@
 package com.example.instagram.presenters;
 
+import android.util.Log;
+
 import com.example.instagram.data.User;
 import com.example.instagram.models.FollowersModel;
 import com.example.instagram.models.UsersModel;
@@ -25,7 +27,8 @@ public class FollowersPresenter {
     public void loadFollowers(final onFollowersLoaded callback) {
         followers_db.loadFollowList(userId, type, new FollowersModel.onFollowListLoaded() {
             @Override
-            public void onSuccess(ArrayList<String> usersId) {
+            public void onSuccess(ArrayList<User> usersId) {
+                Log.i("[Presenter]", "лолкекчебурек : " + usersId.size());
                 user_db.loadUsers(usersId, new UsersModel.onUsersLoaded() {
                     @Override
                     public void onSuccess(ArrayList<User> users) {

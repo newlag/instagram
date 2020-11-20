@@ -3,6 +3,7 @@ package com.example.instagram.models;
 import androidx.annotation.NonNull;
 
 import com.example.instagram.data.Post;
+import com.example.instagram.data.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -37,6 +38,31 @@ public class PostsModel {
                     }
                 }
                 Collections.reverse(posts);
+                callback.onSuccess(posts);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                callback.onFailure();
+            }
+        });
+    }
+
+    public void loadPosts(final ArrayList<User> users, final onPostsLoaded callback) {
+        DatabaseReference reference = db.getReference(DB_PATH);
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                ArrayList<Post> posts = new ArrayList<>();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Post post = dataSnapshot.getValue(Post.class);
+                    for (User user : users) {
+                        if (user.getUser_id().equals(post.getUser_id())) {
+                            posts.add(post);
+                            break;
+                        }
+                    }
+                }
                 callback.onSuccess(posts);
             }
 
@@ -169,7 +195,7 @@ public class PostsModel {
         void onFailure();
     }
 
-    public void loadFollowingsPosts(final ArrayList<String> user, final int max_count, final onFollowingPostsLoaded callback) {
+    public void loadFollowingsPosts(final ArrayList<User> users, final int max_count, final onFollowingPostsLoaded callback) {
         DatabaseReference reference = db.getReference(DB_PATH);
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -177,8 +203,9 @@ public class PostsModel {
                 ArrayList<Post> posts = new ArrayList<>();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Post post = dataSnapshot.getValue(Post.class);
-                    for (String userId : user) {
-                        if (post.getUser_id().equals(userId)) {
+                    for (User user : users) {
+
+                        if (post.getUser_id().equals(user.getUser_id())) {
                             posts.add(post);
                             break;
                         }

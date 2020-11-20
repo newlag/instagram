@@ -39,7 +39,7 @@ public class UsersModel {
         void onFailure();
     }
 
-    public void loadUsers(final ArrayList<String> usersId, final onUsersLoaded callback) {
+    public void loadUsers(final ArrayList<User> users_list, final onUsersLoaded callback) {
         DatabaseReference reference = db.getReference(DB_PATH);
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -47,10 +47,10 @@ public class UsersModel {
                 ArrayList<User> users = new ArrayList<>();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     User user = dataSnapshot.getValue(User.class);
-                    for (String id : usersId) {
-                        if (id.equals(user.getUser_id())) {
+                    for (User u : users_list) {
+                        if (u.getUser_id().equals(user.getUser_id())) {
                             users.add(user);
-                            break;
+                            break; 
                         }
                     }
                 }

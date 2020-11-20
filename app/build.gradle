@@ -35,4 +35,5 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:19.4.0'
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
     implementation 'com.yashoid:instacropper:1.2.0'
+    implementation 'com.github.shts:StoriesProgressView:3.0.0'
 }

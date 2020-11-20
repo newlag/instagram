@@ -2,6 +2,7 @@ package com.example.instagram.models;
 
 import androidx.annotation.NonNull;
 
+import com.example.instagram.data.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -156,9 +157,10 @@ public class FollowersModel {
        reference.addListenerForSingleValueEvent(new ValueEventListener() {
            @Override
            public void onDataChange(@NonNull DataSnapshot snapshot) {
-               ArrayList<String> usersId = new ArrayList<>();
+               ArrayList<User> usersId = new ArrayList<>();
                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                   usersId.add(dataSnapshot.getKey());
+                   //usersId.add(dataSnapshot.getValue(User.class));
+                   usersId.add(new User(dataSnapshot.getKey()));
                }
                callback.onSuccess(usersId);
            }
@@ -171,7 +173,7 @@ public class FollowersModel {
     }
 
     public interface onFollowListLoaded {
-        void onSuccess(ArrayList<String> users);
+        void onSuccess(ArrayList<User> users);
         void onFailure();
     }
 }

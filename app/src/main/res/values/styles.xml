@@ -9,6 +9,11 @@
         <item name="actionMenuTextColor">@color/colorBlueButton</item>
     </style>
 
+    <style name="BlackTheme" parent="CustomTheme">
+        <item name="colorPrimaryDark">@color/colorBlack</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
     <style name="AuthEditText">
         <item name="android:background">@drawable/edit_text_style</item>
         <item name="android:backgroundTint">@color/colorGreyLight</item>

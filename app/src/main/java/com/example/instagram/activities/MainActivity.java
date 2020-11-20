@@ -2,6 +2,7 @@ package com.example.instagram.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         int id = menuItem.getItemId();
 
         if (id == R.id.action_add) {
-            startActivity(new Intent(MainActivity.this, UploadActivity.class));
+            startActivity(UploadActivity.newInstance(this, 0));
             return true;
         }
 
@@ -134,5 +135,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         } else {
             prevFragment();
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
